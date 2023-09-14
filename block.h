@@ -19,16 +19,20 @@ struct Block{
             arr[n - i - 1][p] = temp[p][i];
         }
     }
+
     void rotate() {
         int n = get_size();
-        for (int i = 0; i < n / 2; i++) 
+        for (int i = 0; i < n / 2; i++)
             update_layer(i, n);
     }
+
     void out_block() {
-        for (int i = 0; i < get_size(); i++)
+        for (int i = 0; i < get_size(); i++) {
             for (int j = 0; j < get_size(); j++)
-                if (a[i][j]) cout << "#";
-                else cout << " ";
+                if (arr[i][j]) cout << '#';
+                else cout << ' ';
+            cout << '\n';
+        }
     }
 };
 

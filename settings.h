@@ -38,13 +38,14 @@ namespace settings {
     }
 
     void main() {
-        system("color B0");
+        // Background - Text color
+        system("color F0");
 
         SetConsoleOutputCP(65001);
         // Name
-        SetConsoleTitle(TEXT("Chess"));
+        SetConsoleTitle(TEXT("Tetris"));
         // width - height - disableResize
-        windowSetting(16 + 2, 32 + 2, true);        //Board.txt
+        windowSetting(100 + 2, 100 + 2, true);        //Board.txt
 //        windowSetting(20 + 2, 56 + 2, true);        //Debug
 
         // disableClose - disableMin - disableMax - disableScrollBar - disableCursor
