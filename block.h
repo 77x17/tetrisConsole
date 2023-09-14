@@ -6,8 +6,9 @@ int random(int l, int r) {
 }
 
 struct Block{
-    int x = 1, y = 4;
+    int x = 0, y = 4;
     matrix arr;
+    int type;
 
     int get_size() { return sz(arr); }
 
@@ -20,7 +21,7 @@ struct Block{
     void printBlock() {
         for (int i = 0; i < get_size(); i++) {
             for (int j = 0; j < get_size(); j++) {
-                gotoxy(x + i, y + j);
+                gotoxy(x + i, y + j); color(type);
                 if (arr[i][j]) cout << '#';
             }
         }
@@ -97,5 +98,9 @@ Block randBlock() {
                        {0, 0, 1, 0},
                        {0, 0, 1, 0}};
 
-    return blockArr[random(0, 1)];
+    int temp = random(0, 1);
+
+    blockArr[temp].type = temp;
+
+    return blockArr[temp];
 }
