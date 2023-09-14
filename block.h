@@ -6,9 +6,36 @@ int random(int l, int r) {
 }
 
 struct Block{
+    int x = 1, y = 4;
     matrix arr;
 
     int get_size() { return sz(arr); }
+
+    void deleteBlock() {
+        for (int i = 0; i < get_size(); i++)
+            for (int j = 0; j < get_size(); j++)
+                if (arr[i][j]) gotoxy(x + i, y + j), cout << ' ';
+    }
+
+    void printBlock() {
+        for (int i = 0; i < get_size(); i++) {
+            for (int j = 0; j < get_size(); j++) {
+                gotoxy(x + i, y + j);
+                if (arr[i][j]) cout << '#';
+            }
+        }
+    }
+
+    bool check(int x, int y) {
+        for (int i = 0; i < get_size(); i++) {
+            for (int j = 0; j < get_size(); j++) {
+                if (arr[i][j] && currArr[x + i][y + j] != 0)
+                    return false;
+            }
+        }
+
+        return true;
+    }
 
     void update_layer(int p, int n) {
         matrix temp = arr;
@@ -26,13 +53,34 @@ struct Block{
             update_layer(i, n);
     }
 
-    void out_block() {
-        for (int i = 0; i < get_size(); i++) {
-            for (int j = 0; j < get_size(); j++)
-                if (arr[i][j]) cout << '#';
-                else cout << ' ';
-            cout << '\n';
-        }
+    bool checkRotate() {
+        Block temp = {x, y, arr};
+
+        temp.rotate();
+
+        return temp.check(x, y);
+    }
+
+    void blockRotate() {
+        if (!checkRotate()) return;
+
+        deleteBlock();
+
+        rotate();
+
+        printBlock();
+    }
+
+    bool moveDown() {
+        if (!check(x + 1, y)) return false;
+
+        deleteBlock();
+
+        x++;
+
+        printBlock();
+
+        return true;
     }
 };
 

@@ -7,7 +7,7 @@ void gotoXY(SHORT posY, SHORT posX) {
     SetConsoleCursorPosition(hStdout, Position);
 }
 
-void gotoxy(int x, int y) {gotoXY(2 * x + 1, 4 * y);}
+void gotoxy(int x, int y) {gotoXY(x, y);}
 
 void setColor(int backgound_color, int text_color) {
     HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
