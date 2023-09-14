@@ -1,20 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#include "settings.h"
 #include "map.h"
 #include "block.h"
+#include "gameplay.h"
 
 int main() {
-    buildMap();
+    settings::main();
 
-    Block curr = randBlock();
+    tetrisMap::buildBoard();
 
-    for (int i = 0; i <= 3; i++) {
-        for (int j = 0; j <= 3; j++) {
-            if (curr.arr[i][j] == 1) cout << 'x'; else cout << ' ';
-        }
-        cout << '\n';
-    }
+    gameplay();
 
     return 0;
 }
