@@ -1,3 +1,5 @@
-void buildMap() {
+namespace tetrisMap {
+    void build() {
 
+    }
 }
