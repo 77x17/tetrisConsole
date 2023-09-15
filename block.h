@@ -82,6 +82,26 @@ struct Block{
 
         return true;
     }
+
+    void move_left() {
+        if (!check(x, y - 1)) return;
+
+        deleteBlock();
+
+        y--;
+
+        printBlock();
+    }
+
+    void move_right() {
+        if (!check(x, y + 1)) return;
+
+        deleteBlock();
+
+        y++;
+
+        printBlock();
+    }
 };
 
 Block blockArr[3];
@@ -113,7 +133,7 @@ Block randBlock() {
         {1, 1, 1}
     }};
 
-    int temp = random(0, 0);
+    int temp = random(0, 2);
 
     Block result = blockArr[temp];
 
