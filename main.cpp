@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <conio.h>
 using namespace std;
 
 const int w = 10;
@@ -11,6 +10,7 @@ int currArr[h + 2][w + 2], currColor[h + 2][w + 2];
 #include "settings.h"
 #include "map.h"
 #include "block.h"
+#include "control.h"
 #include "gameplay.h"
 
 int main() {    
@@ -20,7 +20,7 @@ int main() {
 
     gameplay(); 
 
-    char s = getch();
-
+    // char s = getchar();
+    // cout << (int)s << '\n';
     return 0;
 }

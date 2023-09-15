@@ -1,3 +1,5 @@
+#include<conio.h>
+
 const int nBoard = 3;
 const int nDBlock = 2;
 const int nBlock = 1;
@@ -59,53 +61,63 @@ void gameplay() {
 
         play = false;
 
+        const int DELTA_TIME = 1000;
+        clock_t time_now = clock();
+
         while (true) {
-            if (!currBlock.moveDown()) {
-                for (int i = 0; i < currBlock.get_size(); i++) {
-                    for (int j = 0; j < currBlock.get_size(); j++) {
-                        if (currBlock.arr[i][j]) {
-                            currArr[currBlock.x + i][currBlock.y + j] = nDBlock;
-                            currColor[currBlock.x + i][currBlock.y + j] = currBlock.type; 
-                        }
-                    }
-                }
+            char dir = get_char_from_key();
+            if (dir == 'd') currBlock.move_right();
+            if (dir == 'a') currBlock.move_left();
+            if (dir == 'w') currBlock.blockRotate();
+            if (dir == 's') currBlock.moveDown();
 
-                int cnt = 0;
-                for (int i = 0; i < currBlock.get_size(); i++) {
-                    bool allFill = true;
-                    for (int j = 1; j <= w; j++) if (currArr[currBlock.x + i][j] == 0) allFill = false;
-
-                    if (allFill) {
-                        cnt++;
-
-                        for (int j = 1; j <= w; j++) {
-                            currArr[currBlock.x + i][j] = 0;
-                            gotoxy(currBlock.x + i, j); cout << ' ';
-                        }
-
-                        for (int _i = currBlock.x + i - 1; _i >= 1; _i--) {
-                            for (int _j = 1; _j <= w; _j++) if (currArr[_i][_j]) {
-                                currArr[_i + 1][_j] = currArr[_i][_j];  currArr[_i][_j] = 0;
-                                currColor[_i + 1][_j] = currColor[_i][_j];
-
-                                gotoxy(_i, _j); cout << ' ';
-                                gotoxy(_i + 1, _j); color(currColor[_i][_j]); cout << '#';
+            if (clock() - time_now >= DELTA_TIME / (level * 0.75)) {
+                if (!currBlock.moveDown()) {
+                    for (int i = 0; i < currBlock.get_size(); i++) {
+                        for (int j = 0; j < currBlock.get_size(); j++) {
+                            if (currBlock.arr[i][j]) {
+                                currArr[currBlock.x + i][currBlock.y + j] = nDBlock;
+                                currColor[currBlock.x + i][currBlock.y + j] = currBlock.type; 
                             }
                         }
                     }
-                }
 
-                if (cnt == 1) points += 40 * level;
-                if (cnt == 2) points += 100 * level;
-                if (cnt == 3) points += 300 * level;
-                if (cnt == 4) points += 1200 * level;
+                    int cnt = 0;
+                    for (int i = 0; i < currBlock.get_size(); i++) {
+                        bool allFill = true;
+                        for (int j = 1; j <= w; j++) if (currArr[currBlock.x + i][j] == 0) allFill = false;
 
-                lines += cnt * 2;
+                        if (allFill) {
+                            cnt++;
 
-                break;
-            } else play = true;
+                            for (int j = 1; j <= w; j++) {
+                                currArr[currBlock.x + i][j] = 0;
+                                gotoxy(currBlock.x + i, j); cout << ' ';
+                            }
 
-            Sleep(100 / (level * 0.75));
+                            for (int _i = currBlock.x + i - 1; _i >= 1; _i--) {
+                                for (int _j = 1; _j <= w; _j++) if (currArr[_i][_j]) {
+                                    currArr[_i + 1][_j] = currArr[_i][_j];  currArr[_i][_j] = 0;
+                                    currColor[_i + 1][_j] = currColor[_i][_j];
+
+                                    gotoxy(_i, _j); cout << ' ';
+                                    gotoxy(_i + 1, _j); color(currColor[_i][_j]); cout << '#';
+                                }
+                            }
+                        }
+                    }
+
+                    if (cnt == 1) points += 40 * level;
+                    if (cnt == 2) points += 100 * level;
+                    if (cnt == 3) points += 300 * level;
+                    if (cnt == 4) points += 1200 * level;
+
+                    lines += cnt * 2;
+
+                    break;
+                } else play = true;
+                time_now = clock();
+            }
         }
     }
 
