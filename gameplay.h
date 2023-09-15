@@ -20,23 +20,14 @@ void gameplay() {
     nextBlock.printBlock();
 
     while (play) {
-        if (lines <= 10) level = 1;
-        else if (lines <= 30) level = 2;
-        else if (lines <= 50) level = 3;
-        else if (lines <= 75) level = 4;
-        else if (lines <= 100) level = 5;
-        else if (lines <= 125) level = 6;
-        else if (lines <= 150) level = 7;
-        else if (lines <= 175) level = 8;
-        else if (lines <= 200) level = 9;
-        else level = 10;
+        level = min(10, max(1, lines / 10));
 
         // display
-        gotoxy(7, 30); setColor(BRIGHTWHITE, 0); cout << "Level: " << level;
+        gotoxy(8, 31); setColor(BRIGHTWHITE, 0); cout << points;
 
-        gotoxy(9, 30); setColor(BRIGHTWHITE, 0); cout << "Points: " << points;
+        gotoxy(9, 31); setColor(BRIGHTWHITE, 0); cout << level;
 
-        gotoxy(11, 30); setColor(BRIGHTWHITE, 0); cout << "Lines: " << lines;
+        gotoxy(10, 31); setColor(BRIGHTWHITE, 0); cout << lines;
 
         Block currBlock = nextBlock;
 
@@ -77,11 +68,13 @@ void gameplay() {
                         for (int j = 1; j <= w; j++) if (currArr[currBlock.x + i][j] == 0) allFill = false;
 
                         if (allFill) {
+                            cout << '\a';
+
                             cnt++;
 
                             for (int j = 1; j <= w; j++) {
                                 currArr[currBlock.x + i][j] = 0;
-                                gotoxy(currBlock.x + i, j); color(BRIGHTWHITE); cout << ' ';
+                                gotoxy(currBlock.x + i, j), color((currBlock.x + i + j) % 2 ? BRIGHTWHITE : LIGHTGRAY), cout << ' ';
                             }
 
                             for (int _i = currBlock.x + i - 1; _i >= 1; _i--) {
@@ -89,7 +82,7 @@ void gameplay() {
                                     currArr[_i + 1][_j] = currArr[_i][_j];  currArr[_i][_j] = 0;
                                     currColor[_i + 1][_j] = currColor[_i][_j];
 
-                                    gotoxy(_i, _j); color(BRIGHTWHITE), cout << ' ';
+                                    gotoxy(_i, _j), color((_i + _j) % 2 ? BRIGHTWHITE : LIGHTGRAY), cout << ' ';
                                     gotoxy(_i + 1, _j); color(currColor[_i][_j]); cout << '#';
                                 }
                             }
@@ -101,7 +94,7 @@ void gameplay() {
                     if (cnt == 3) points += 300 * level;
                     if (cnt == 4) points += 1200 * level;
 
-                    lines += cnt * 2;
+                    lines += cnt;
 
                     break;
                 } else play = true;

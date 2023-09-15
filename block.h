@@ -14,7 +14,7 @@ struct Block{
     void deleteBlock() {
         for (int i = 0; i < get_size(); i++)
             for (int j = 0; j < get_size(); j++)
-                if (arr[i][j]) gotoxy(x + i, y + j), color(BRIGHTWHITE), cout << ' ';
+                if (arr[i][j]) gotoxy(x + i, y + j), color((x + i + y + j) % 2 ? BRIGHTWHITE : LIGHTGRAY), cout << ' ';
     }
 
     void printBlock() {
@@ -104,68 +104,68 @@ struct Block{
     }
 };
 
-Block blockArr[8];
+Block blockArr[7];
 
 Block randBlock() {
     srand(time(NULL));
 
-    blockArr[1] = {
-        1,          // type
-        1, 30, {    // x, y
+    blockArr[0] = {
+        0,          // type
+        3, 28, {    // x, y
         {1, 1},     // block shape
         {1, 1}
     }};
 
-    blockArr[2] = {
-        2,              
-        1, 30, {
+    blockArr[1] = {
+        1,              
+        2, 26, {
         {0, 0, 1, 0},
         {0, 0, 1, 0},
         {0, 0, 1, 0},
         {0, 0, 1, 0}
     }};
 
-    blockArr[3] = {
-        3,              
-        1, 30, {
+    blockArr[2] = {
+        2,              
+        2, 27, {
         {0, 0, 0},
         {0, 1, 0},
         {1, 1, 1}
     }};
 
-    blockArr[4] = {
-        4,              
-        1, 30, {
+    blockArr[3] = {
+        3,              
+        2, 27, {
         {0, 1, 0},
         {0, 1, 0},
         {1, 1, 0}
     }};
 
-    blockArr[5] = {
-        5,              
-        1, 30, {
+    blockArr[4] = {
+        4,              
+        2, 27, {
         {0, 1, 0},
         {0, 1, 0},
         {0, 1, 1}
     }};
 
-    blockArr[6] = {
-        6,              
-        1, 30, {
+    blockArr[5] = {
+        5,              
+        2, 27, {
         {0, 0, 0},
         {1, 1, 0},
         {0, 1, 1}
     }};
 
-    blockArr[7] = {
-        7,              
-        1, 30, {
+    blockArr[6] = {
+        6,              
+        2, 27, {
         {0, 0, 0},
         {0, 1, 1},
         {1, 1, 0}
     }};
 
-    int temp = random(1, 7);
+    int temp = random(0, 6);
 
     Block result = blockArr[temp];
 
