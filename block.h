@@ -113,7 +113,7 @@ Block randBlock() {
         {1, 1, 1}
     }};
 
-    int temp = random(0, 2);
+    int temp = random(0, 0);
 
     Block result = blockArr[temp];
 

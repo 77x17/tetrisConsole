@@ -1,10 +1,12 @@
 #include <bits/stdc++.h>
+#include <conio.h>
 using namespace std;
 
 const int w = 10;
 const int h = 20;
 
-int currArr[h + 2][w + 2];
+int points = 0, level = 1, lines = 0;
+int currArr[h + 2][w + 2], currColor[h + 2][w + 2];
 
 #include "settings.h"
 #include "map.h"
@@ -18,7 +20,7 @@ int main() {
 
     gameplay(); 
 
-    char s = getchar();
- 
+    char s = getch();
+
     return 0;
 }
