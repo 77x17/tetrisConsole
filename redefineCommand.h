@@ -16,4 +16,4 @@ void setColor(int backgound_color, int text_color) {
     SetConsoleTextAttribute(hStdout, color_code);
 }
 
-void color(int text_color) {setColor(BRIGHTWHITE, text_color);}
+void color(int text_color) {setColor(text_color, text_color);}

@@ -5,7 +5,7 @@ const int nDBlock = 2;
 const int nBlock = 1;
 
 bool play = true;
-int inc = 1;
+const int speed[11] = {0, 1000, 900, 800, 700, 600, 500, 400, 300, 200, 100};
 
 void gameplay() {
     for (int i = 1; i <= h; i++) {
@@ -25,35 +25,24 @@ void gameplay() {
         else if (lines <= 50) level = 3;
         else if (lines <= 75) level = 4;
         else if (lines <= 100) level = 5;
-        else if (lines <= 125) level = 6;  
-        else if (lines <= 150) level = 7;  
-        else if (lines <= 175) level = 8;  
+        else if (lines <= 125) level = 6;
+        else if (lines <= 150) level = 7;
+        else if (lines <= 175) level = 8;
         else if (lines <= 200) level = 9;
         else level = 10;
 
         // display
-        gotoxy(7, 30); color(0); cout << "Level: " << level;
+        gotoxy(7, 30); setColor(BRIGHTWHITE, 0); cout << "Level: " << level;
 
-        gotoxy(9, 30); color(0); cout << "Points: " << points;
+        gotoxy(9, 30); setColor(BRIGHTWHITE, 0); cout << "Points: " << points;
 
-        gotoxy(11, 30); color(0); cout << "Lines: " << lines;
-        
+        gotoxy(11, 30); setColor(BRIGHTWHITE, 0); cout << "Lines: " << lines;
+
         Block currBlock = nextBlock;
 
         nextBlock.deleteBlock();
         nextBlock = randBlock();
         nextBlock.printBlock();
-        //
-        
-        // currBlock.x = 1; 
-        
-        // currBlock.y = inc;
-
-        // inc += 2;
-
-        // if (inc == 11) inc = 1;
-
-        // currBlock.y = getch() - 48;
 
         currBlock.x = 1, currBlock.y = 4;
 
@@ -61,7 +50,6 @@ void gameplay() {
 
         play = false;
 
-        const int DELTA_TIME = 1000;
         clock_t time_now = clock();
 
         while (true) {
@@ -69,21 +57,22 @@ void gameplay() {
             if (dir == 'd') currBlock.move_right();
             if (dir == 'a') currBlock.move_left();
             if (dir == 'w') currBlock.blockRotate();
-            if (dir == 's') currBlock.moveDown();
+            if (dir == 's') if (currBlock.moveDown()) play = true;
+            if (dir == ' ') while (currBlock.moveDown()) play = true;
 
-            if (clock() - time_now >= DELTA_TIME / (level * 0.75)) {
+            if (clock() - time_now >= speed[level]) {
                 if (!currBlock.moveDown()) {
                     for (int i = 0; i < currBlock.get_size(); i++) {
                         for (int j = 0; j < currBlock.get_size(); j++) {
                             if (currBlock.arr[i][j]) {
                                 currArr[currBlock.x + i][currBlock.y + j] = nDBlock;
-                                currColor[currBlock.x + i][currBlock.y + j] = currBlock.type; 
+                                currColor[currBlock.x + i][currBlock.y + j] = currBlock.type;
                             }
                         }
                     }
 
                     int cnt = 0;
-                    for (int i = 0; i < currBlock.get_size(); i++) {
+                    for (int i = 0; i < currBlock.get_size(); i++) if (currBlock.x + i <= h) {
                         bool allFill = true;
                         for (int j = 1; j <= w; j++) if (currArr[currBlock.x + i][j] == 0) allFill = false;
 
@@ -92,7 +81,7 @@ void gameplay() {
 
                             for (int j = 1; j <= w; j++) {
                                 currArr[currBlock.x + i][j] = 0;
-                                gotoxy(currBlock.x + i, j); cout << ' ';
+                                gotoxy(currBlock.x + i, j); color(BRIGHTWHITE); cout << ' ';
                             }
 
                             for (int _i = currBlock.x + i - 1; _i >= 1; _i--) {
@@ -100,7 +89,7 @@ void gameplay() {
                                     currArr[_i + 1][_j] = currArr[_i][_j];  currArr[_i][_j] = 0;
                                     currColor[_i + 1][_j] = currColor[_i][_j];
 
-                                    gotoxy(_i, _j); cout << ' ';
+                                    gotoxy(_i, _j); color(BRIGHTWHITE), cout << ' ';
                                     gotoxy(_i + 1, _j); color(currColor[_i][_j]); cout << '#';
                                 }
                             }

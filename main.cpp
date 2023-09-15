@@ -13,14 +13,14 @@ int currArr[h + 2][w + 2], currColor[h + 2][w + 2];
 #include "control.h"
 #include "gameplay.h"
 
-int main() {    
+int main() {
     settings::main();
 
     buildBoard();
 
-    gameplay(); 
+    gameplay();
 
-    // char s = getchar();
-    // cout << (int)s << '\n';
+    char s = getch();
+
     return 0;
 }

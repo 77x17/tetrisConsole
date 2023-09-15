@@ -14,7 +14,7 @@ struct Block{
     void deleteBlock() {
         for (int i = 0; i < get_size(); i++)
             for (int j = 0; j < get_size(); j++)
-                if (arr[i][j]) gotoxy(x + i, y + j), cout << ' ';
+                if (arr[i][j]) gotoxy(x + i, y + j), color(BRIGHTWHITE), cout << ' ';
     }
 
     void printBlock() {
@@ -104,20 +104,20 @@ struct Block{
     }
 };
 
-Block blockArr[3];
+Block blockArr[8];
 
 Block randBlock() {
     srand(time(NULL));
 
-    blockArr[0] = {
-        0,          // type
+    blockArr[1] = {
+        1,          // type
         1, 30, {    // x, y
         {1, 1},     // block shape
         {1, 1}
     }};
 
-    blockArr[1] = {
-        1,              
+    blockArr[2] = {
+        2,              
         1, 30, {
         {0, 0, 1, 0},
         {0, 0, 1, 0},
@@ -125,15 +125,47 @@ Block randBlock() {
         {0, 0, 1, 0}
     }};
 
-    blockArr[2] = {
-        2,              
+    blockArr[3] = {
+        3,              
         1, 30, {
         {0, 0, 0},
         {0, 1, 0},
         {1, 1, 1}
     }};
 
-    int temp = random(0, 2);
+    blockArr[4] = {
+        4,              
+        1, 30, {
+        {0, 1, 0},
+        {0, 1, 0},
+        {1, 1, 0}
+    }};
+
+    blockArr[5] = {
+        5,              
+        1, 30, {
+        {0, 1, 0},
+        {0, 1, 0},
+        {0, 1, 1}
+    }};
+
+    blockArr[6] = {
+        6,              
+        1, 30, {
+        {0, 0, 0},
+        {1, 1, 0},
+        {0, 1, 1}
+    }};
+
+    blockArr[7] = {
+        7,              
+        1, 30, {
+        {0, 0, 0},
+        {0, 1, 1},
+        {1, 1, 0}
+    }};
+
+    int temp = random(1, 7);
 
     Block result = blockArr[temp];
 
