@@ -2,13 +2,12 @@
 using matrix = vector<vector<int>>;
 
 int random(int l, int r) {
-    return rand() % (r - l + 1) + l;
+    return 1ll * rand() * rand() % (r - l + 1) + l;
 }
 
 struct Block{
-    int x = 0, y = 4;
+    int type, x, y;
     matrix arr;
-    int type;
 
     int get_size() { return sz(arr); }
 
@@ -55,7 +54,7 @@ struct Block{
     }
 
     bool checkRotate() {
-        Block temp = {x, y, arr};
+        Block temp = {type, x, y, arr};
 
         temp.rotate();
 
@@ -85,22 +84,41 @@ struct Block{
     }
 };
 
-Block blockArr[2];
+Block blockArr[3];
 
 Block randBlock() {
     srand(time(NULL));
 
-    blockArr[0].arr = {{1, 1},
-                       {1, 1}};
+    blockArr[0] = {
+        0,          // type
+        1, 30, {    // x, y
+        {1, 1},     // block shape
+        {1, 1}
+    }};
 
-    blockArr[1].arr = {{0, 0, 1, 0},
-                       {0, 0, 1, 0},
-                       {0, 0, 1, 0},
-                       {0, 0, 1, 0}};
+    blockArr[1] = {
+        1,              
+        1, 30, {
+        {0, 0, 1, 0},
+        {0, 0, 1, 0},
+        {0, 0, 1, 0},
+        {0, 0, 1, 0}
+    }};
 
-    int temp = random(0, 1);
+    blockArr[2] = {
+        2,              
+        1, 30, {
+        {0, 0, 0},
+        {0, 1, 0},
+        {1, 1, 1}
+    }};
 
-    blockArr[temp].type = temp;
+    int temp = random(0, 2);
 
-    return blockArr[temp];
+    Block result = blockArr[temp];
+
+    int n = random(0, 3);
+    for (int i = 1; i <= n; i++) result.rotate();
+
+    return result;
 }

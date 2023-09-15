@@ -12,19 +12,28 @@ void gameplay() {
     for (int i = 0; i <= w + 1; i++) currArr[0][i] = currArr[h + 1][i] = nBoard;
     for (int i = 0; i <= h + 1; i++) currArr[i][0] = currArr[i][w + 1] = nBoard;
 
-    while (play) {
-        Block curr = randBlock();
-        curr.blockRotate();
+    Block nextBlock = randBlock();
 
-        if (curr.check(curr.x, curr.y)) curr.printBlock();
+    nextBlock.printBlock();
+
+    while (play) {
+        Block currBlock = nextBlock;
+
+        nextBlock.deleteBlock();
+        nextBlock = randBlock();
+        nextBlock.printBlock();
+
+        currBlock.x = 1, currBlock.y = 4;
+
+        if (currBlock.check(currBlock.x, currBlock.y)) currBlock.printBlock();
 
         play = false;
 
         while (true) {
-            if (!curr.moveDown()) {
-                for (int i = 0; i < curr.get_size(); i++) {
-                    for (int j = 0; j < curr.get_size(); j++) {
-                        if (curr.arr[i][j]) currArr[curr.x + i][curr.y + j] = nDBlock;
+            if (!currBlock.moveDown()) {
+                for (int i = 0; i < currBlock.get_size(); i++) {
+                    for (int j = 0; j < currBlock.get_size(); j++) {
+                        if (currBlock.arr[i][j]) currArr[currBlock.x + i][currBlock.y + j] = nDBlock;
                     }
                 }
 
@@ -32,7 +41,6 @@ void gameplay() {
             } else play = true;
 
             Sleep(50);
-            curr.blockRotate();
         }
     }
 

@@ -11,12 +11,14 @@ int currArr[h + 2][w + 2];
 #include "block.h"
 #include "gameplay.h"
 
-int main() {
+int main() {    
     settings::main();
 
-    tetrisMap::buildBoard();
+    buildBoard();
 
-    gameplay();
+    gameplay(); 
 
+    char s = getchar();
+ 
     return 0;
 }

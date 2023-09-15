@@ -1,10 +1,8 @@
-namespace tetrisMap {
-    void buildBoard() {
-        std::ifstream file((const std::string)"Board.txt");
+void buildBoard() {
+    ifstream file((const string)"Board.txt");
 
-        std::string s;
-        while (getline(file, s)) std::cout << s << '\n';
+    string s;
+    while (getline(file, s)) cout << s << '\n';
 
-        file.close();
-    }
+    file.close();
 }
